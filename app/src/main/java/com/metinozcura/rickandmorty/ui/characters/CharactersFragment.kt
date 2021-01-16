@@ -6,47 +6,49 @@ import com.metinozcura.rickandmorty.R
 import com.metinozcura.rickandmorty.base.BaseFragment
 import com.metinozcura.rickandmorty.databinding.FragmentCharactersBinding
 import com.metinozcura.rickandmorty.ui.adapter.CharacterAdapter
-import com.metinozcura.rickandmorty.util.adapter.paging.PagingLoadStateAdapter
+import com.metinozcura.rickandmorty.util.PagingLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>() {
     private val charactersViewModel: CharactersViewModel by viewModels()
-    private val characterAdapter = CharacterAdapter()
+
+    @Inject
+    lateinit var characterAdapter: CharacterAdapter
+
     override val layoutId: Int
         get() = R.layout.fragment_characters
 
     override fun getVM(): CharactersViewModel = charactersViewModel
 
-    override fun bindVM(binding: FragmentCharactersBinding, vm: CharactersViewModel) {
+    override fun bindVM(binding: FragmentCharactersBinding, vm: CharactersViewModel) =
         with(binding) {
-            swipeRefresh.setOnRefreshListener { characterAdapter.refresh() }
-            rvCharacters.adapter = characterAdapter.withLoadStateHeaderAndFooter(
-                header = PagingLoadStateAdapter(characterAdapter),
-                footer = PagingLoadStateAdapter(characterAdapter)
-            )
-            with(vm) {
-                launchOnLifecycleScope {
-                    charactersFlow.collectLatest {
-                        characterAdapter.submitData(it)
+            with(characterAdapter) {
+                swipeRefresh.setOnRefreshListener { refresh() }
+                rvCharacters.adapter = withLoadStateHeaderAndFooter(
+                    header = PagingLoadStateAdapter(this),
+                    footer = PagingLoadStateAdapter(this)
+                )
+                with(vm) {
+                    launchOnLifecycleScope {
+                        charactersFlow.collectLatest { submitData(it) }
                     }
-                }
-                launchOnLifecycleScope {
-                    characterAdapter.loadStateFlow.collectLatest {
-                        swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
+                    launchOnLifecycleScope {
+                        loadStateFlow.collectLatest {
+                            swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
+                        }
                     }
-                }
-                launchOnLifecycleScope {
-                    characterAdapter.loadStateFlow
-                        .distinctUntilChangedBy { it.refresh }
-                        .filter { it.refresh is LoadState.NotLoading }
-                        .collect { rvCharacters.scrollToPosition(0) }
+                    launchOnLifecycleScope {
+                        loadStateFlow.distinctUntilChangedBy { it.refresh }
+                            .filter { it.refresh is LoadState.NotLoading }
+                            .collect { rvCharacters.scrollToPosition(0) }
+                    }
                 }
             }
         }
-    }
 }

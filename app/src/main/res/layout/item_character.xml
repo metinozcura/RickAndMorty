@@ -64,6 +64,7 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 status="@{character.status}"
+                android:drawableStart="@drawable/ic_status_circle"
                 android:textSize="@dimen/text_size_status"
                 android:drawablePadding="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"

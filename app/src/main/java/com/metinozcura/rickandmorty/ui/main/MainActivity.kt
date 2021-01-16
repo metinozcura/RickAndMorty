@@ -21,8 +21,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun getVM(): MainViewModel = mainViewModel
 
-    override fun bindVM(binding: ActivityMainBinding, vm: MainViewModel) {
-    }
+    override fun bindVM(binding: ActivityMainBinding, vm: MainViewModel) = Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +54,5 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         currentNavController = controller
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return currentNavController?.value?.navigateUp() ?: false
-    }
+    override fun onSupportNavigateUp() = currentNavController?.value?.navigateUp() ?: false
 }

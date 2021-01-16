@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
 
 abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel> : Fragment() {
     private lateinit var viewModel: VM

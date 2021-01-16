@@ -7,16 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.metinozcura.rickandmorty.data.model.Character
 import com.metinozcura.rickandmorty.databinding.ItemCharacterBinding
+import javax.inject.Inject
 
-class CharacterAdapter :
+class CharacterAdapter @Inject constructor() :
     PagingDataAdapter<Character, CharacterAdapter.CharacterViewHolder>(CharacterComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         CharacterViewHolder(
             ItemCharacterBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+                LayoutInflater.from(parent.context), parent, false
             )
         )
 
