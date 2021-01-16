@@ -18,7 +18,6 @@ class CharactersViewModel @ViewModelInject constructor(
         get() = _charactersFlow
 
     init {
-        Log.i("mtn", "CharactersViewModel init")
         getAllCharacters()
     }
 

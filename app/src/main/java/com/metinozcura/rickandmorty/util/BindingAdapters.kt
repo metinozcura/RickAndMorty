@@ -17,8 +17,8 @@ fun ImageView.loadImage(url: String?) {
 fun MaterialTextView.status(status: Status) {
     text = status.toString()
     when (status) {
-        Status.ALIVE -> setDrawableTint(R.color.green_a700)
-        Status.DEAD -> setDrawableTint(R.color.red_a700)
-        Status.UNKNOWN -> setDrawableTint(R.color.gray_700)
+        Status.ALIVE -> setDrawableLeft(R.color.green_a700)
+        Status.DEAD -> setDrawableLeft(R.color.red_a700)
+        Status.UNKNOWN -> setDrawableLeft(R.color.gray_700)
     }
 }

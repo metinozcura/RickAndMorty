@@ -42,7 +42,7 @@ abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel> : Fragment
     }
 
     fun launchOnLifecycleScope(execute: suspend () -> Unit) {
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             execute()
         }
     }
