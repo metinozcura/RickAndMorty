@@ -2,15 +2,16 @@ package com.metinozcura.rickandmorty.data.paging
 
 import android.net.Uri
 import androidx.paging.PagingSource
-import com.metinozcura.rickandmorty.data.model.Character
-import com.metinozcura.rickandmorty.data.service.CharacterApi
+import com.metinozcura.rickandmorty.data.model.Episode
+import com.metinozcura.rickandmorty.data.service.EpisodeApi
 
-class CharactersPagingDataSource(private val service: CharacterApi) :
-    PagingSource<Int, Character>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
+class EpisodesPagingDataSource(private val service: EpisodeApi) :
+    PagingSource<Int, Episode>() {
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Episode> {
         val pageNumber = params.key ?: 1
         return try {
-            val response = service.getAllCharacters(pageNumber)
+            val response = service.getAllEpisodes(pageNumber)
             val pagedResponse = response.body()
             val data = pagedResponse?.results
 
