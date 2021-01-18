@@ -9,12 +9,14 @@ import com.metinozcura.rickandmorty.data.service.CharacterApi
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CharacterRepositoryImpl @Inject constructor(private val service: CharacterApi) :
-    CharacterRepository {
+class CharacterRepositoryImpl @Inject constructor(
+    private val service: CharacterApi,
+    private val charactersPagingDataSource: CharactersPagingDataSource
+) : CharacterRepository {
 
     override suspend fun getAllCharacters(): Flow<PagingData<Character>> = Pager(
         config = PagingConfig(pageSize = 20, prefetchDistance = 2),
-        pagingSourceFactory = { CharactersPagingDataSource(service) }
+        pagingSourceFactory = { charactersPagingDataSource }
     ).flow
 
     override suspend fun getSingleCharacter(id: Int) = service.getSingleCharacter(id)

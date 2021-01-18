@@ -1,6 +1,5 @@
 package com.metinozcura.rickandmorty.ui.characters
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
