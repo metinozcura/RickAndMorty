@@ -8,5 +8,18 @@
     <fragment
         android:id="@+id/charactersFragment"
         android:name="com.metinozcura.rickandmorty.ui.characters.CharactersFragment"
-        tools:layout="@layout/fragment_characters" />
+        tools:layout="@layout/fragment_characters">
+        <action
+            android:id="@+id/action_characters_to_characterDetail"
+            app:destination="@id/characterDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.metinozcura.rickandmorty.ui.characters.detail.CharacterDetailFragment"
+        tools:layout="@layout/fragment_character_detail" >
+        <argument
+            android:name="character"
+            app:nullable="false"
+            app:argType="com.metinozcura.rickandmorty.data.model.Character" />
+    </fragment>
 </navigation>
