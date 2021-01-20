@@ -54,5 +54,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         currentNavController = controller
     }
 
-    override fun onSupportNavigateUp() = currentNavController?.value?.navigateUp() ?: false
+    override fun onSupportNavigateUp(): Boolean =
+        currentNavController?.value?.navigateUp() ?: false
+
+    /**
+     * Overriding popBackStack is necessary in this case if the app is started from the deep link.
+     */
+    override fun onBackPressed() {
+        if (currentNavController?.value?.popBackStack() != true) {
+            super.onBackPressed()
+        }
+    }
 }
