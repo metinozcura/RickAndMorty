@@ -12,10 +12,7 @@ import com.metinozcura.rickandmorty.databinding.ItemCharacterBinding
 import com.metinozcura.rickandmorty.ui.adapter.CharacterAdapter
 import com.metinozcura.rickandmorty.util.PagingLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -57,11 +54,6 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
                         loadStateFlow.collectLatest {
                             swipeRefresh.isRefreshing = it.refresh is LoadState.Loading
                         }
-                    }
-                    launchOnLifecycleScope {
-                        loadStateFlow.distinctUntilChangedBy { it.refresh }
-                            .filter { it.refresh is LoadState.NotLoading }
-                            .collect { rvCharacters.scrollToPosition(0) }
                     }
                 }
             }
