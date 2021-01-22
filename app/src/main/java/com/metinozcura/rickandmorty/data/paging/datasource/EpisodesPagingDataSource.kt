@@ -1,4 +1,4 @@
-package com.metinozcura.rickandmorty.data.paging
+package com.metinozcura.rickandmorty.data.paging.datasource
 
 import android.net.Uri
 import androidx.paging.PagingSource

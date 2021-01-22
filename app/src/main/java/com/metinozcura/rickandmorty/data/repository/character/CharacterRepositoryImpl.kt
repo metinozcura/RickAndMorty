@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.metinozcura.rickandmorty.data.model.Character
-import com.metinozcura.rickandmorty.data.paging.CharactersPagingDataSource
+import com.metinozcura.rickandmorty.data.paging.datasource.CharactersPagingDataSource
 import com.metinozcura.rickandmorty.data.service.CharacterApi
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
