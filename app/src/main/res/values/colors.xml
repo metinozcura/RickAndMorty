@@ -10,4 +10,5 @@
     <color name="green_a700">#00C853</color>
     <color name="red_a700">#D50000</color>
     <color name="gray_700">#616161</color>
+    <color name="gray_300">#E0E0E0</color>
 </resources>

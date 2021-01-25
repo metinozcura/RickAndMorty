@@ -7,32 +7,25 @@
 
         <variable
             name="location"
-            type="com.metinozcura.rickandmorty.data.model.Location" />
+            type="com.metinozcura.rickandmorty.ui.locations.model.LocationModel.LocationData" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:lines="3"
-            android:maxLines="3"
-            android:padding="16dp"
-            android:text="@{location.name}"
-            android:textSize="20sp"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMaxTextSize="20sp"
-            app:autoSizeMinTextSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Earth" />
-    </com.google.android.material.card.MaterialCardView>
+        android:gravity="center"
+        android:lines="3"
+        android:maxLines="3"
+        android:padding="16dp"
+        android:text="@{location.name}"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:autoSizeMaxTextSize="20sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Earth" />
 </layout>

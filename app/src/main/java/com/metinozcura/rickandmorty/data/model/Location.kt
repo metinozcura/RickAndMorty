@@ -5,5 +5,5 @@ data class Location(
     val name: String,
     val type: String,
     val dimension: String,
-    val residence: List<String>
+    val residence: List<String>?
 )

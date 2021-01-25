@@ -13,11 +13,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:spanCount="2"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            android:paddingHorizontal="16dp"
-            android:clipToPadding="false"
-            tools:listitem="@layout/item_location"
-            tools:itemCount="20"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_location" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

@@ -5,37 +5,68 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.metinozcura.rickandmorty.data.model.Location
 import com.metinozcura.rickandmorty.databinding.ItemLocationBinding
+import com.metinozcura.rickandmorty.databinding.ItemSeparatorLocationBinding
+import com.metinozcura.rickandmorty.ui.locations.model.LocationModel
 import javax.inject.Inject
 
 class LocationAdapter @Inject constructor() :
-    PagingDataAdapter<Location, LocationAdapter.LocationViewHolder>(LocationComparator) {
+    PagingDataAdapter<LocationModel, RecyclerView.ViewHolder>(LocationComparator) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        LocationViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == TYPE_LOCATION) LocationDataViewHolder(
             ItemLocationBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
-
-    override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+        else LocationSeparatorViewHolder(
+            ItemSeparatorLocationBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
     }
 
-    inner class LocationViewHolder(private val binding: ItemLocationBinding) :
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = getItem(position)
+        if (item is LocationModel.LocationData)
+            (holder as LocationDataViewHolder).bind(item)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (getItem(position) is LocationModel.LocationData) TYPE_LOCATION
+        else TYPE_SEPARATOR
+    }
+
+    inner class LocationDataViewHolder(private val binding: ItemLocationBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Location) = with(binding) {
+        fun bind(item: LocationModel.LocationData) = with(binding) {
             location = item
         }
     }
 
-    object LocationComparator : DiffUtil.ItemCallback<Location>() {
-        override fun areItemsTheSame(oldItem: Location, newItem: Location) =
-            oldItem.id == newItem.id
+    inner class LocationSeparatorViewHolder(private val binding: ItemSeparatorLocationBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-        override fun areContentsTheSame(oldItem: Location, newItem: Location) =
+    object LocationComparator : DiffUtil.ItemCallback<LocationModel>() {
+        override fun areItemsTheSame(oldItem: LocationModel, newItem: LocationModel): Boolean {
+            val isSameLocationData = oldItem is LocationModel.LocationData
+                    && newItem is LocationModel.LocationData
+                    && oldItem.id == newItem.id
+
+            val isSameSeparator = oldItem is LocationModel.LocationSeparator
+                    && newItem is LocationModel.LocationSeparator
+                    && oldItem.tag == newItem.tag
+
+            return isSameLocationData || isSameSeparator
+        }
+
+        override fun areContentsTheSame(oldItem: LocationModel, newItem: LocationModel) =
             oldItem == newItem
+    }
+
+    companion object {
+        private const val TYPE_LOCATION = 0
+        private const val TYPE_SEPARATOR = 1
     }
 }
