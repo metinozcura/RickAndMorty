@@ -2,6 +2,7 @@ package com.metinozcura.rickandmorty.data.paging.datasource
 
 import android.net.Uri
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.metinozcura.rickandmorty.data.model.Episode
 import com.metinozcura.rickandmorty.data.service.EpisodeApi
 
@@ -31,4 +32,6 @@ class EpisodesPagingDataSource(private val service: EpisodeApi) :
             LoadResult.Error(e)
         }
     }
+
+    override fun getRefreshKey(state: PagingState<Int, Episode>): Int = 1
 }

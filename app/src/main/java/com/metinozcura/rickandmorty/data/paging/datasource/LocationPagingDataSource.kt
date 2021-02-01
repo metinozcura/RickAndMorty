@@ -2,6 +2,7 @@ package com.metinozcura.rickandmorty.data.paging.datasource
 
 import android.net.Uri
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.metinozcura.rickandmorty.data.model.Location
 import com.metinozcura.rickandmorty.data.service.LocationApi
 
@@ -31,4 +32,6 @@ class LocationPagingDataSource(private val service: LocationApi) :
             LoadResult.Error(e)
         }
     }
+
+    override fun getRefreshKey(state: PagingState<Int, Location>): Int = 1
 }
