@@ -10,10 +10,10 @@ import com.metinozcura.rickandmorty.data.model.Episode
 @Dao
 interface EpisodeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(users: List<Episode>)
+    suspend fun insertAll(episodes: List<Episode>)
 
-    @Query("SELECT * FROM episodes WHERE id LIKE :query")
-    fun pagingSource(query: String): PagingSource<Int, Episode>
+    @Query("SELECT * FROM episodes")
+    fun pagingSource(): PagingSource<Int, Episode>
 
     @Query("DELETE FROM episodes")
     suspend fun clearAll()

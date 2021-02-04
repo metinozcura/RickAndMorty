@@ -10,5 +10,6 @@ data class Episode(
     val name: String,
     @SerializedName("air_date") val airDate: String,
     @SerializedName("code", alternate = ["episode"]) val code: String,
-    val characters: List<String>
+    val characters: List<String>,
+    var page: Int?
 )
