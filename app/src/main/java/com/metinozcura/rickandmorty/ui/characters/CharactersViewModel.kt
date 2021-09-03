@@ -1,15 +1,17 @@
 package com.metinozcura.rickandmorty.ui.characters
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.metinozcura.rickandmorty.base.BaseViewModel
 import com.metinozcura.rickandmorty.data.model.Character
 import com.metinozcura.rickandmorty.data.repository.character.CharacterRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class CharactersViewModel @ViewModelInject constructor(
+@HiltViewModel
+class CharactersViewModel @Inject constructor(
     private val characterRepository: CharacterRepository
 ) : BaseViewModel() {
     private lateinit var _charactersFlow: Flow<PagingData<Character>>

@@ -1,6 +1,5 @@
 package com.metinozcura.rickandmorty.ui.locations
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -10,10 +9,13 @@ import com.metinozcura.rickandmorty.base.BaseViewModel
 import com.metinozcura.rickandmorty.data.model.Location
 import com.metinozcura.rickandmorty.data.repository.location.LocationRepository
 import com.metinozcura.rickandmorty.ui.locations.model.LocationModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class LocationsViewModel @ViewModelInject constructor(
+@HiltViewModel
+class LocationsViewModel @Inject constructor(
     private val locationRepository: LocationRepository
 ) : BaseViewModel() {
     private lateinit var _locationsFlow: Flow<PagingData<LocationModel>>

@@ -5,8 +5,10 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.metinozcura.rickandmorty.data.model.Character
 import com.metinozcura.rickandmorty.data.service.CharacterApi
+import javax.inject.Inject
 
-class CharactersPagingDataSource(private val service: CharacterApi) :
+
+class CharactersPagingDataSource @Inject constructor(private val service: CharacterApi) :
     PagingSource<Int, Character>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
         val pageNumber = params.key ?: 1
