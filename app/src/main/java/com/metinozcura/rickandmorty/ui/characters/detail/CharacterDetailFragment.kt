@@ -8,7 +8,9 @@ import androidx.transition.TransitionInflater
 import com.metinozcura.rickandmorty.R
 import com.metinozcura.rickandmorty.base.BaseFragment
 import com.metinozcura.rickandmorty.databinding.FragmentCharacterDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CharacterDetailFragment :
     BaseFragment<FragmentCharacterDetailBinding, CharacterDetailViewModel>() {
     private val characterDetailViewModel: CharacterDetailViewModel by viewModels()
@@ -22,7 +24,7 @@ class CharacterDetailFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+            TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
     }
 
     override fun bindVM(binding: FragmentCharacterDetailBinding, vm: CharacterDetailViewModel) {
